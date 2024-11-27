@@ -1,0 +1,31 @@
+<!-- header with bs5 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/admin/api">Dashboard</a>
+        <button id="auth" class="btn"></button>
+    </div>
+</nav>
+
+<script>
+    const authButton = document.getElementById("auth");
+    const isHeaderAuth = localStorage.getItem("token");
+     
+    if (isHeaderAuth) {
+        authButton.textContent = "Logout";
+        authButton.classList.add("btn-danger");
+        authButton.classList.remove("btn-primary");
+        authButton.addEventListener("click", () => {
+            localStorage.removeItem("token");
+            document.location.href = "/admin/auth/logout";
+        });
+    } else {
+        authButton.classList.add("btn-primary");
+        authButton.classList.remove("btn-danger");
+        authButton.textContent = "Login";
+        authButton.addEventListener("click", () => {
+            document.location.href = "/admin/auth/login";
+        });
+    }
+</script>
+<!-- start of the main content -->
+<div class="container">

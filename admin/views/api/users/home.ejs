@@ -1,0 +1,41 @@
+<%- include('../../partials/_head') %>
+<%- include('../../partials/_header') %>
+
+<h1><%= pageTitle %></h1>
+<div id="data"></div>
+<div id="error"></div>
+
+<script src="/admin/js/api/apiCaller.js"></script>
+<script src="/admin/js/users/api.js"></script>
+<script src="/admin/js/html/table.js"></script>
+<script>
+    const apiUrl = "<%= apiUrl %>";
+    const fields = <%- JSON.stringify(listFiedls) %>;
+    const actions = <%- JSON.stringify(actions) %>;
+     
+    getAllUsers(apiUrl)
+        .then((data) => {
+             
+            if (data.error) {
+                 
+                error = data.error;
+                return;
+            } else if (data.users) {
+                 
+                const usersDiv = document.getElementById("data");
+                usersDiv.append(getHtmlTable(data.users, fields, actions));
+            }
+        })
+        .catch((err) => {
+             
+            const errorDiv = document.getElementById("error");
+            errorDiv.innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Error</h4>
+                    <pre>${JSON.stringify(err, null, 2)}</pre>
+                </div>
+            `
+        });
+</script>
+
+<%- include('../../partials/_footer') %>

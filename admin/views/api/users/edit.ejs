@@ -1,0 +1,84 @@
+<%- include('../../partials/_head') %> <%- include('../../partials/_header') %>
+
+<h1><%= pageTitle %></h1>
+<div id="data"></div>
+<div id="message"></div>
+
+<script src="/admin/js/api/apiCaller.js"></script>
+<script src="/admin/js/users/api.js"></script>
+<script src="/admin/js/html/edit-form.js"></script>
+<script>
+    // get variables from the controller
+    const apiUrl = "<%= apiUrl %>";
+    const ressourceName = "<%= ressourceName %>";
+    const fields = <%- JSON.stringify(editFields) %>;
+    // check if there is a message and parse it
+    let message = null;
+    let messageDiv = null;
+    <% if (locals.message) { %>
+        message = <%- JSON.stringify(locals.message) %>;
+    <% } %>
+    if (message) {
+        messageDiv = document.getElementById("message");
+         
+         
+        messageDiv.innerHTML = `
+            <div class="alert alert-${message.class}" role="alert">
+                <pre>${message.content}</pre>
+            </div>
+        `;
+    }
+    // log input variables
+     
+     
+     
+     
+
+    // get user by id
+    getUserById(apiUrl)
+        .then((data) => {
+                 
+                if (data?.error) {
+                     
+                    return;
+                } else if (data?.user) {
+                     
+                    const dataDiv = document.getElementById("data");
+                    dataDiv.innerHTML = "";
+                    const form = getEditForm(data.user, fields);
+                    if (form) {
+                        dataDiv.append(form);
+                        // add return button
+                        const returnButton = document.createElement("a");
+                        returnButton.href = "/admin/api/users";
+                        returnButton.classList.add("btn", "btn-primary");
+                        returnButton.textContent = "Back to list";
+                        dataDiv.append(returnButton);
+                        // button for removing company
+                        const removeButton = document.createElement("button");
+                        removeButton.classList.add("btn", "btn-danger");
+                        removeButton.textContent = "Remove company";
+                        removeButton.addEventListener("click", () => {
+                            // clean the company selet input
+                            const companySelect = document.getElementById("companyId");
+                            companySelect.value = "";
+                            // submit the form
+                            form.submit();
+                        });
+                        dataDiv.append(removeButton);
+                    }
+                }
+            })
+            .catch((err) => {
+                 
+                const errorDiv = document.getElementById("error");
+                errorDiv.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Error</h4>
+                        <pre>${JSON.stringify(err, null, 2)}</pre>
+                    </div>
+                `
+            });
+</script>
+
+<%- include('../../partials/_footer') %>

@@ -1,0 +1,324 @@
+driver1Id: &driver1Id
+    ref: users
+    refField: email
+    targetField: _id
+    refValue: driver1@digifret.demo
+driver2Id: &driver2Id
+    ref: users
+    refField: email
+    targetField: _id
+    refValue: driver2@digifret.demo
+driver3Id: &driver3Id
+    ref: users
+    refField: email
+    targetField: _id
+    refValue: driver3@digifret.demo
+driver4Id: &driver4Id
+    ref: users
+    refField: email
+    targetField: _id
+    refValue: driver4@digifret.demo
+
+transporter1Id: &transporter1Id
+    ref: users
+    refField: email
+    targetField: _id
+    refValue: transporter1@digifret.demo
+transporter2Id: &transporter2Id
+    ref: users
+    refField: email
+    targetField: _id
+    refValue: transporter2@digifret.demo
+
+companyId1: &company1
+    ref: companies
+    refField: name
+    targetField: _id
+    refValue: company1
+companyId2: &company2
+    ref: companies
+    refField: name
+    targetField: _id
+    refValue: company2
+
+truck1Id: &truck1Id
+    ref: trucks
+    refField: plateNumber
+    targetField: _id
+    refValue: 111-111
+truck2Id: &truck2Id
+    ref: trucks
+    refField: plateNumber
+    targetField: _id
+    refValue: 222-222
+truck3Id: &truck3Id
+    ref: trucks
+    refField: plateNumber
+    targetField: _id
+    refValue: 333-333
+truck4Id: &truck4Id
+    ref: trucks
+    refField: plateNumber
+    targetField: _id
+    refValue: 444-444
+
+location1-1Id: &location1-1Id
+    ref: locations
+    refField: name
+    targetField: _id
+    refValue: location1-1
+location1-2Id: &location1-2Id
+    ref: locations
+    refField: name
+    targetField: _id
+    refValue: location1-2
+location1-3Id: &location1-3Id
+    ref: locations
+    refField: name
+    targetField: _id
+    refValue: location1-3
+location2-1Id: &location2-1Id
+    ref: locations
+    refField: name
+    targetField: _id
+    refValue: location2-1
+location2-2Id: &location2-2Id
+    ref: locations
+    refField: name
+    targetField: _id
+    refValue: location2-2
+
+email1: &email1 email1@localhost.com
+email2: &email2 email2@localhost.com
+email3: &email3 email3@localhost.com
+
+identifiers:
+    trucks: plateNumber
+    users: email
+    companies: name
+    locations: name
+    trips: description
+
+users:
+    - fullname:
+          value: super admin
+      email:
+          value: super.admin@digifret.demo
+      role:
+          value: super-admin
+      password:
+          value: super.admin
+      isCompleted:
+          value: true
+
+    - fullname:
+          value: transporter1
+      email:
+          value: transporter1@digifret.demo
+      role:
+          value: transporter
+      password:
+          value: transporter
+      isCompleted:
+          value: true
+      companyId: *company1
+
+    - fullname:
+          value: transporter2
+      email:
+          value: transporter2@digifret.demo
+      role:
+          value: transporter
+      password:
+          value: transporter
+      isCompleted:
+          value: true
+      companyId: *company2
+
+    - fullname:
+          value: driver1
+      email:
+          value: driver1@digifret.demo
+      role:
+          value: driver
+      password:
+          value: driver
+      isCompleted:
+          value: true
+      companyId: *company1
+
+    - fullname:
+          value: driver2
+      email:
+          value: driver2@digifret.demo
+      role:
+          value: driver
+      password:
+          value: driver
+      isCompleted:
+          value: true
+      companyId: *company1
+
+    - fullname:
+          value: driver3
+      email:
+          value: driver3@digifret.demo
+      role:
+          value: driver
+      password:
+          value: driver
+      isCompleted:
+          value: true
+      companyId: *company2
+
+    - fullname:
+          value: driver4
+      email:
+          value: driver4@digifret.demo
+      role:
+          value: driver
+      password:
+          value: driver
+      isCompleted:
+          value: true
+
+companies:
+    - name:
+          value: company1
+      createdBy: *transporter1Id
+    - name:
+          value: company2
+      createdBy: *transporter2Id
+
+trucks:
+    - plateNumber:
+          value: 111-111
+      companyId: *company1
+      createdBy: *transporter1Id
+      responsible: *driver1Id
+      year:
+          value: 2019
+
+    - plateNumber:
+          value: 222-222
+      companyId: *company1
+      responsible: *driver1Id
+      createdBy: *transporter1Id
+      year:
+          value: 2015
+
+    - plateNumber:
+          value: 333-333
+      companyId: *company2
+      createdBy: *transporter2Id
+      responsible: *driver3Id
+      year:
+          value: 2018
+    - plateNumber:
+          value: 444-444
+      companyId: *company2
+      createdBy: *transporter2Id
+      responsible: *driver3Id
+      year:
+          value: 2017
+    - plateNumber:
+          value: 555-555
+      companyId: *company1
+      createdBy: *transporter1Id
+      responsible: *driver2Id
+      year:
+          value: 2016
+
+locations:
+    - createdBy: *transporter1Id
+      companyId: *company1
+      name:
+          value: location1-1
+      phone:
+          value: 123456789
+      email:
+          value: *email1
+      address:
+          value: address1-1
+    - createdBy: *transporter1Id
+      companyId: *company1
+      name:
+          value: location1-2
+      phone:
+          value: 123456789
+      email:
+          value: *email2
+      address:
+          value: address1-2
+    - createdBy: *transporter1Id
+      companyId: *company1
+      name:
+          value: location1-3
+      phone:
+          value: 123456789
+      email:
+          value: *email2
+      address:
+          value: address1-3
+    - createdBy: *transporter2Id
+      companyId: *company2
+      name:
+          value: location2-1
+      phone:
+          value: 123456789
+      email:
+          value: *email3
+      address:
+          value: address2-1
+    - createdBy: *transporter2Id
+      companyId: *company2
+      name:
+          value: location2-2
+      phone:
+          value: 123456789
+      email:
+          value: *email1
+      address:
+          value: address2-2
+
+trips:
+    - createdBy: *driver1Id
+      companyId: *company1
+      truckId: *truck1Id
+      responsible: *driver1Id
+      originId: *location1-1Id
+      destinationId: *location1-2Id
+      description:
+          value: trip1
+      date:
+          value: 2025-01-01
+    - createdBy: *driver1Id
+      companyId: *company1
+      truckId: *truck1Id
+      responsible: *driver1Id
+      originId: *location1-2Id
+      destinationId: *location1-3Id
+      description:
+          value: trip2
+      date:
+          value: 2025-01-02
+    - createdBy: *driver3Id
+      companyId: *company2
+      truckId: *truck3Id
+      responsible: *driver3Id
+      originId: *location2-1Id
+      destinationId: *location2-2Id
+      description:
+          value: trip3
+      date:
+          value: 2025-01-03
+    - createdBy: *transporter2Id
+      companyId: *company2
+      truckId: *truck4Id
+      responsible: *driver3Id
+      originId: *location2-2Id
+      destinationId: *location2-1Id
+      description:
+          value: trip4
+      date:
+          value: 2025-01-04

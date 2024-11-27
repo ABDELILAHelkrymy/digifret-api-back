@@ -1,0 +1,575 @@
+populateCompany: &populateCompany
+    - path: companyId
+      select: name
+users:
+    getAll:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+            fields:
+                allowed:
+                    - _id
+                    - fullname
+                    - phone
+                    - email
+                    - role
+    getById:
+        super-admin:
+            enabled: true
+            propsPopulate: *populateCompany
+        driver:
+            enabled: true
+            propsRelation:
+                ressourceProp: _id
+            propsPopulate: *populateCompany
+            fields:
+                allowed:
+                    - fullname
+                    - phone
+                    - email
+        transporter:
+            enabled: true
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+            propsPopulate: *populateCompany
+            fields:
+                allowed:
+                    - _id
+                    - fullname
+                    - phone
+                    - email
+    create:
+        enabled: false
+    update:
+        super-admin:
+            enabled: true
+        driver:
+            enabled: true
+            propsRelation:
+                ressourceProp: _id
+            fields:
+                allowed:
+                    - fullname
+                    - phone
+        transporter:
+            enabled: true
+            propsRelation:
+                ressourceProp: _id
+            fields:
+                allowed:
+                    - fullname
+                    - phone
+    delete:
+        super-admin:
+            enabled: true
+            propsRelation:
+                ressourceProp: _id
+                relation: different
+    search:
+        super-admin:
+            enabled: true
+            propsPopulate:
+                - path: companyId
+                  select: name
+        transporter:
+            enabled: true
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+locations:
+    getAll:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+    getById:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+    create:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled:
+            propsUser:
+                - prop: companyId
+                  validation: required
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+    update:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+    delete:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+trucks:
+    getAll:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: responsible
+                userProp: _id
+    getById:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: responsible
+                userProp: _id
+    create:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            fields:
+                denied:
+                    - createdBy
+                    - companyId
+        driver:
+            enabled: false
+    update:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: false
+    delete:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: false
+trips:
+    getAll:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: driverId
+                userProp: _id
+    getById:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: driverId
+                userProp: _id
+    create:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            fields:
+                denied:
+                    - status
+        driver:
+            enabled: false
+    update:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+            fields:
+                denied:
+                    - companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: driverId
+                userProp: _id
+            fields:
+                denied:
+                    - driverId
+                    - companyId
+    delete:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: false
+maintenanceTypes:
+    getAll:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+        driver:
+            enabled: true
+    getById:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+        driver:
+            enabled: true
+    create:
+        super-admin:
+            enabled: true
+    update:
+        super-admin:
+            enabled: true
+    delete:
+        super-admin:
+            enabled: true
+companies:
+    getAll:
+        super-admin:
+            enabled: true
+    getById:
+        super-admin:
+            enabled: true
+maintenances:
+    getAll:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: responsible
+                userProp: _id
+    getById:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: responsible
+                userProp: _id
+    create:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+    update:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: responsible
+                userProp: _id
+    delete:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: false
+attachments:
+    propsPopulate: &attachmentsPropsPopulate
+        - path: entity
+          select: responsible
+    driverPropsRelation: &driverPropsRelation
+        ressourceProp: entity.responsible
+    getAll:
+        super-admin:
+            enabled: true
+            propsPopulate: *attachmentsPropsPopulate
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+            propsPopulate: *attachmentsPropsPopulate
+        driver:
+            # need costumization in controller/permissionMiddleware
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation: *driverPropsRelation
+            propsPopulate: *attachmentsPropsPopulate
+    getById:
+        super-admin:
+            enabled: true
+            propsPopulate: *attachmentsPropsPopulate
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+            propsPopulate: *attachmentsPropsPopulate
+        driver:
+            # need costumization in controller/permissionMiddleware
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation: *driverPropsRelation
+            propsPopulate: *attachmentsPropsPopulate
+    create:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            fields:
+                denied:
+                    - companyId
+                    - createdBy
+        driver:
+            # need costumization in controller/permissionMiddleware
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            fields:
+                denied:
+                    - companyId
+                    - createdBy
+    update:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+            fields:
+                allowed:
+                    - isFavorite
+                    - name
+        driver:
+            # need costumization in controller/permissionMiddleware
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation: *driverPropsRelation
+
+    delete:
+        super-admin:
+            enabled: false
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation:
+                ressourceProp: companyId
+                userProp: companyId
+        driver:
+            enabled: false
+    download:
+        super-admin:
+            enabled: true
+        transporter:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation: *driverPropsRelation
+
+        driver:
+            enabled: true
+            propsUser:
+                - prop: companyId
+                  validation: required
+            propsRelation: *driverPropsRelation
+            propsPopulate: *attachmentsPropsPopulate

@@ -1,0 +1,19 @@
+ressources:
+    - users:
+          actions:
+              denied:
+                  - create
+    - companies
+    - trucks
+    - locations
+    - trips
+    - maintenances
+    - maintenanceTypes
+    - attachments:
+          actions:
+              customized:
+                  - name: download
+                    hasPostAction: true
+                  - name: create
+                    hasPostAction: true
+    # - attachments # it is complicated to create a generic controller for attachments.

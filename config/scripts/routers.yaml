@@ -1,0 +1,29 @@
+ressources:
+    - users
+    - companies
+    - trucks
+    - locations
+    - trips
+    - maintenances
+    - maintenanceTypes
+    - attachments
+costumRoutes:
+    users:
+        deniedRoutes:
+            - create
+    attachments:
+        addedRoutes:
+            - action: download
+              method: get
+              url: /download/:id
+              postActions:
+                  - name: download
+        modifiedRoutes:
+            - name: create
+              middlewares:
+                  - name: upload
+                    method: single
+                    params:
+                        - value: file
+              postActions:
+                  - name: upload

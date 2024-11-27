@@ -1,0 +1,39 @@
+<%- include('../partials/_head') %>
+<%- include('../partials/_header') %>
+
+<h1>Login to access the Admin space</h1>
+<form action="/admin/auth/login" method="POST" id="login-form" class="form">
+    <div class="form-group">
+        <label for="username">Login</label>
+        <input
+            class="form-control"
+            id="username"
+            type="text"
+            name="username"
+            placeholder="Username"
+            required
+            value="<%= locals.username ?? '' %>"
+        />
+
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input
+            id="password"
+            class="form-control"
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            value="<%= locals.password ?? '' %>"
+        />
+    </div>
+    <button type="submit"
+        class="btn btn-primary"
+    >Login</button>
+</form>
+<% if (locals.error) { %>
+    <p><%= error %></p>
+<% } %>
+
+<%- include('../partials/_footer') %>

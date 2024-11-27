@@ -1,0 +1,176 @@
+# users entity is created already in the project template.
+# feel free to add more entities to the list of ressources.
+companies:
+    name: companies
+    timestamps: true
+    fields:
+        - name: name
+          type: String
+        - name: createdBy
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+trucks:
+    name: trucks
+    timestamps: true
+    fields:
+        - name: companyId
+          type: mongoose.Schema.Types.ObjectId
+          ref: companies
+          required: true
+          fromUser: companyId
+        - name: createdBy
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+          fromUser: _id
+        - name: plateNumber
+          type: String
+          required: true
+        - name: year
+          type: Number
+          required: true
+        - name: responsible
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+          fromUser: _id
+trips:
+    name: trips
+    timestamps: true
+    fields:
+        - name: createdBy
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+        - name: companyId
+          type: mongoose.Schema.Types.ObjectId
+          ref: companies
+          required: true
+        - name: truckId
+          type: mongoose.Schema.Types.ObjectId
+          ref: trucks
+          required: true
+        - name: responsible
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+        - name: originId
+          type: mongoose.Schema.Types.ObjectId
+          ref: locations
+          required: true
+        - name: destinationId
+          type: mongoose.Schema.Types.ObjectId
+          ref: locations
+          required: true
+        - name: date
+          type: Date
+        - name: status
+          type: String
+          enum: "'pending', 'in-progress', 'completed', 'canceled', 'scheduled'"
+          default: "'pending'"
+        - name: description
+          type: String
+        - name: distance
+          type: Number
+        - name: price
+          type: Number
+        - name: weight
+          type: Number
+        - name: noPallets
+          type: Number
+attachments:
+    name: attachments
+    timestamps: true
+    fields:
+        - name: createdBy
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+          fromUser: _id
+        - name: companyId
+          type: mongoose.Schema.Types.ObjectId
+          ref: companies
+          required: true
+          fromUser: companyId
+        - name: entity
+          type: mongoose.Schema.Types.ObjectId
+          refPath: entityName
+          required: true
+        - name: entityName
+          type: String
+          enum: "'trips', 'trucks', 'maintenances'"
+          required: true
+        - name: name
+          type: String
+        - name: url
+          type: String
+          required: true
+          default: "'NOT_AVAILABLE'"
+        - name: isFavorite
+          type: Boolean
+          default: false
+locations:
+    name: locations
+    timestamps: true
+    fields:
+        - name: companyId
+          type: mongoose.Schema.Types.ObjectId
+          ref: companies
+          required: true
+          fromUser: companyId
+        - name: createdBy
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+          fromUser: _id
+        - name: name
+          type: String
+          required: true
+        - name: phone
+          type: String
+        - name: email
+          type: String
+        - name: address
+          type: String
+          required: true
+        - name: latitude
+          type: String
+        - name: longitude
+          type: String
+maintenances:
+    name: maintenances
+    timestamps: true
+    fields:
+        - name: createdBy
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+        - name: companyId
+          type: mongoose.Schema.Types.ObjectId
+          ref: companies
+          required: true
+        - name: truckId
+          type: mongoose.Schema.Types.ObjectId
+          ref: trucks
+          required: true
+        - name: responsible
+          type: mongoose.Schema.Types.ObjectId
+          ref: users
+          required: true
+        - name: date
+          type: Date
+          required: true
+        - name: description
+          type: String
+        - name: maintenanceTypesId
+          type: mongoose.Schema.Types.ObjectId
+          ref: maintenanceTypes
+          required: true
+maintenanceTypes:
+    name: maintenanceTypes
+    timestamps: true
+    fields:
+        - name: name
+          type: String
+          required: true
